@@ -1,11 +1,20 @@
+## Script to create data for FHABs Incidents web map on the CA HABs Portal
+
+
+## The script standardizes the language in the "current advisory" field so that
+## current advisories can be displayed as colors on the map
+## The script also changes the advisory and size of the point based on the time since last update
+
 
 ## Load Libraries
 library(tidyverse)
 library(lubridate)
 
+## Data is stored on the S: drive
+setwd("S:/OIMA/SHARED/Freshwater HABs Program/FHABs Database/Python_Output")
 
 ## Download Bloom report CSV
-blooms <- read_csv("fhab_bloomreport.csv") %>% 
+blooms <- read_csv("fhab_BloomReport.csv") %>% 
   mutate(TypeofSign= tolower(TypeofSign)) 
 
 # Calculate number of days ago bloom was last observed
@@ -21,7 +30,7 @@ df_new <- df %>%
   mutate(TypeofSign_new= ifelse(str_detect(TypeofSign_new, "dan"), "Danger", TypeofSign_new)) %>% # DANGER
   mutate(TypeofSign_new= ifelse(str_detect(TypeofSign_new, "(non|no |n\\/a)"), "None", TypeofSign_new)) %>%  # NONE
   mutate(TypeofSign_new= ifelse(str_detect(TypeofSign_new, "(close)"), "Danger", TypeofSign_new)) %>%  # DANGER
-  mutate(TypeofSign_new= ifelse(str_detect(TypeofSign_new, "usace"), "General notification", TypeofSign_new)) %>%  # USACE
+  mutate(TypeofSign_new= ifelse(str_detect(TypeofSign_new, "usace"), "Awareness sign", TypeofSign_new)) %>%  # USACE
   mutate(TypeofSign_new= ifelse(str_detect(TypeofSign_new, "current|progress|unknown|notifying"), "See incident report", TypeofSign_new)) %>% # MISCELLANEOUS
   mutate(TypeofSign_new= ifelse(is.na(TypeofSign_new), "See incident report", TypeofSign_new)) # No data
 return(df_new)
@@ -30,8 +39,8 @@ return(df_new)
 blooms_newLabels <- revise_advisory_labels(blooms)
 
 
-table(blooms_newLabels$TypeofSign_new, exclude= NULL)
-table(blooms_newLabels$TypeofSign, exclude= NULL)
+#table(blooms_newLabels$TypeofSign_new, exclude= NULL)
+#table(blooms_newLabels$TypeofSign, exclude= NULL)
 
 
 ## Apply time cutoffs to revise the advisories displayed on the map
