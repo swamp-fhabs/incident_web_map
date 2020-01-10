@@ -14,7 +14,7 @@ library(lubridate)
 setwd("S:/OIMA/SHARED/Freshwater HABs Program/FHABs Database/Python_Output")
 
 ## Download Bloom report CSV
-blooms <- read_csv("fhab_BloomReport.csv") %>% 
+blooms <- read_csv("FHAB_BloomReport.csv") %>% 
   mutate(TypeofSign= tolower(TypeofSign)) 
 
 # Calculate number of days ago bloom was last observed
@@ -62,5 +62,5 @@ blooms_newLabels_timeCutoff <- blooms_newLabels %>%
 #table(blooms_newLabels_timeCutoff$TypeofSign_new, exclude= NA)
 
 
-write_csv(blooms_newLabels_timeCutoff, "fhab_BloomReport_Tableau.csv")
+write_csv(blooms_newLabels_timeCutoff, "FHAB_BloomReport_Tableau.csv")
 
