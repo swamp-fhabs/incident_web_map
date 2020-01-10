@@ -31,6 +31,7 @@ df_new <- df %>%
   mutate(TypeofSign_new= ifelse(str_detect(TypeofSign_new, "(non|no |n\\/a)"), "None", TypeofSign_new)) %>%  # NONE
   mutate(TypeofSign_new= ifelse(str_detect(TypeofSign_new, "(close)"), "Danger", TypeofSign_new)) %>%  # DANGER
   mutate(TypeofSign_new= ifelse(str_detect(TypeofSign_new, "usace"), "Awareness sign", TypeofSign_new)) %>%  # USACE
+  mutate(TypeofSign_new= ifelse(str_detect(TypeofSign_new, "invest"), "Under investigation", TypeofSign_new)) %>%  # Under investigation requestion from RB1
   mutate(TypeofSign_new= ifelse(str_detect(TypeofSign_new, "current|progress|unknown|notifying"), "See incident report", TypeofSign_new)) %>% # MISCELLANEOUS
   mutate(TypeofSign_new= ifelse(is.na(TypeofSign_new), "See incident report", TypeofSign_new)) # No data
 return(df_new)
@@ -46,12 +47,20 @@ blooms_newLabels <- revise_advisory_labels(blooms)
 ## Apply time cutoffs to revise the advisories displayed on the map
 ## >14 days and <90 days with no updated bloom observation, status changes to "Suspected bloom"
 ## >90 days with no updated bloom observation, status changes to "None"
+
 blooms_newLabels_timeCutoff <- blooms_newLabels %>% 
   mutate(TypeofSign_new= ifelse(days_ago > 14 & days_ago < 90, "Suspected bloom", TypeofSign_new)) %>% 
-  mutate(TypeofSign_new= ifelse(days_ago > 90, "None", TypeofSign_new))
+  mutate(TypeofSign_new= ifelse(days_ago > 90, "Historical", TypeofSign_new)) %>% 
+  mutate(days_ago_label= "days_ago",
+         days_ago_label= ifelse(days_ago <= 7, "<7 days", days_ago_label)) %>%
+  mutate(days_ago_label= ifelse(days_ago > 7 & days_ago <= 30, "8-30 days", days_ago_label)) %>%
+  mutate(days_ago_label= ifelse(days_ago > 7 & days_ago <= 30, "8-30 days", days_ago_label)) %>%
+  mutate(days_ago_label= ifelse(days_ago > 30 & days_ago <= 90, "31-90 days", days_ago_label)) %>%
+  mutate(days_ago_label= ifelse(days_ago > 90, ">90 days", days_ago_label))
 
 
-table(blooms_newLabels_timeCutoff$TypeofSign_new, exclude= NA)
+#table(blooms_newLabels_timeCutoff$TypeofSign_new, exclude= NA)
 
 
+write_csv(blooms_newLabels_timeCutoff, "fhab_BloomReport_Tableau.csv")
 
