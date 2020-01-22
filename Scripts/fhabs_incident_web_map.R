@@ -6,15 +6,17 @@
 ## The script also changes the advisory and size of the point based on the time since last update
 
 
+message("Running Rscript to make Tableau CSV")
+
 ## Load Libraries
-library(tidyverse)
-library(lubridate)
+suppressMessages(library(tidyverse))
+suppressMessages(library(lubridate))
 
 ## Data is stored on the S: drive
 setwd("S:/OIMA/SHARED/Freshwater HABs Program/FHABs Database/Python_Output")
 
 ## Download Bloom report CSV
-blooms <- read_csv("FHAB_BloomReport.csv") %>% 
+blooms <- suppressMessages(read_csv("FHAB_BloomReport.csv")) %>% 
   mutate(TypeofSign= tolower(TypeofSign)) 
 
 # Calculate number of days ago bloom was last observed
@@ -61,6 +63,6 @@ blooms_newLabels_timeCutoff <- blooms_newLabels %>%
 
 #table(blooms_newLabels_timeCutoff$TypeofSign_new, exclude= NA)
 
-
+message("Writing file: FHAB_BloomReport_Tableau.csv")
 write_csv(blooms_newLabels_timeCutoff, "FHAB_BloomReport_Tableau.csv")
 
