@@ -51,7 +51,7 @@ blooms_newLabels <- revise_advisory_labels(blooms)
 ## >90 days with no updated bloom observation, status changes to "None"
 
 blooms_newLabels_timeCutoff <- blooms_newLabels %>% 
-  mutate(TypeofSign_new= ifelse(days_ago > 14 & days_ago < 90, "Suspected bloom", TypeofSign_new)) %>% 
+  mutate(TypeofSign_new= ifelse(days_ago > 21 & days_ago <= 90 & TypeofSign_new != "None", "Suspected bloom", TypeofSign_new)) %>% 
   mutate(TypeofSign_new= ifelse(days_ago > 90, "Historical", TypeofSign_new)) %>% 
   mutate(days_ago_label= "days_ago",
          days_ago_label= ifelse(days_ago <= 7, "<7 days", days_ago_label)) %>%
