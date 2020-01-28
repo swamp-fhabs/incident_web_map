@@ -1,7 +1,7 @@
-﻿Advisory,html_color,
-Historical,#FFE4C4,
-Suspected Bloom,#DAF7A6,
-None,#228B22,
-Caution,#fff200,
-Warning,#f7901e,
-Danger,#d2232a,
+﻿Advisory,html_color
+Historical,#FFE4C4
+Suspected bloom,#DAF7A6
+None,#228B22
+Caution,#fff200
+Warning,#f7901e
+Danger,#d2232a
