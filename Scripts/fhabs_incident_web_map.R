@@ -20,7 +20,7 @@ blooms <- suppressMessages(read_csv("FHAB_BloomReport.csv")) %>%
   mutate(TypeofSign= tolower(TypeofSign)) 
 
 # Calculate number of days ago bloom was last observed
-days_ago <- as.duration(blooms$ObservationDate %--% Sys.Date()) %>% 
+days_ago <- as.duration(blooms$BloomLastVerifiedOn %--% Sys.Date()) %>% 
   as.numeric(., "days")
 
 ## Function to clean up the bloom advisory language and labels
@@ -40,7 +40,6 @@ return(df_new)
 }
 
 blooms_newLabels <- revise_advisory_labels(blooms)
-
 
 #table(blooms_newLabels$TypeofSign_new, exclude= NULL)
 #table(blooms_newLabels$TypeofSign, exclude= NULL)
