@@ -1,6 +1,9 @@
 # Outlook files
 *.msg
 
+# Other
+.DS_Store
+
 # History files
 .Rhistory
 .Rapp.history
