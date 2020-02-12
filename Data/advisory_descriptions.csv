@@ -1,7 +1,7 @@
 ﻿Advisory,Description
-Historical,"No new observations have been made of this bloom for more than 90 days. It is assumed the bloom has subsided, and this is a historical report"
-Suspected bloom,No new observations have been made of this bloom for 21 days. The bloom may still be present or may have subsided. A more recent observation is needed to updated the advisory.
+Last update >90 days ago,No new observations have been made of this bloom for more than 90 days. Contact waterbody manager for current conditions.
+Last update >30 days ago,No new observations have been made of this bloom for 30 days. The bloom may still be present or may have subsided. Contact waterbody manager for current conditions.
 None,No bloom is present at this location
-Caution,"Stay away from algae and scum in the water. Do NOT let pets go in the water, drink the water, or eat scum on the shore. Keep Children away from algae."
-Warning,"No swimming. Stay away from algae and scum in the water. Do NOT let pets go in the water, drink the water, or eat scum on the shore."
-Danger,"STAY OUT OF THE WATER. Do not touch scum in the water or shore. Do NOT let pets go in the water, drink the water, or eat scum on the shore."
+Caution,"Stay away from algae and scum in the water. Do NOT let pets go in the water, drink the water, or eat scum on the shore. Keep Children away from algae. Do not eat shellfish from this waterbody."
+Warning,"No swimming. Stay away from algae and scum in the water. Do NOT let pets go in the water, drink the water, or eat scum on the shore. Do not eat shellfish from this waterbody."
+Danger,"STAY OUT OF THE WATER. Do not touch scum in the water or shore. Do NOT let pets go in the water, drink the water, or eat scum on the shore. Do not eat shellfish from this waterbody."

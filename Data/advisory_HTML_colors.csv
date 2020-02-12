@@ -1,7 +1,8 @@
 ﻿Advisory,html_color
-Historical,#ffffff
-Suspected bloom,#ffffbf
+Last update >90 days ago,#A9A9A9
+Last update >30 days ago,#ffffbf
 None,#228B22
 Caution,#fff200
 Warning,#f7901e
 Danger,#d2232a
+See incident details,#4e79a7
