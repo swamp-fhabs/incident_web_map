@@ -50,14 +50,13 @@ blooms_newLabels <- revise_advisory_labels(blooms)
 ## >90 days with no updated bloom observation, status changes to "None"
 
 blooms_newLabels_timeCutoff <- blooms_newLabels %>% 
-  mutate(TypeofSign_new= ifelse(days_ago > 21 & days_ago <= 90 & TypeofSign_new != "None", "Suspected bloom", TypeofSign_new)) %>% 
-  mutate(TypeofSign_new= ifelse(days_ago > 90, "Historical", TypeofSign_new)) %>% 
+  mutate(TypeofSign_new= ifelse(days_ago > 30 & days_ago <= 90, "Last update >30 days ago", TypeofSign_new)) %>% 
+  mutate(TypeofSign_new= ifelse(days_ago > 90, "Last update >90 days ago", TypeofSign_new)) %>% 
   mutate(days_ago_label= "days_ago",
          days_ago_label= ifelse(days_ago <= 7, "<7 days", days_ago_label)) %>%
-  mutate(days_ago_label= ifelse(days_ago > 7 & days_ago <= 30, "8-30 days", days_ago_label)) %>%
-  mutate(days_ago_label= ifelse(days_ago > 7 & days_ago <= 30, "8-30 days", days_ago_label)) %>%
-  mutate(days_ago_label= ifelse(days_ago > 30 & days_ago <= 90, "31-90 days", days_ago_label)) %>%
-  mutate(days_ago_label= ifelse(days_ago > 90, ">90 days", days_ago_label))
+  mutate(days_ago_label= ifelse(days_ago > 7 & days_ago <= 30, "within 30 days", days_ago_label)) %>%
+  mutate(days_ago_label= ifelse(days_ago > 30 & days_ago <= 90, "within 90 days", days_ago_label)) %>%
+  mutate(days_ago_label= ifelse(days_ago > 90, "older than 90 days", days_ago_label))
 
 
 #table(blooms_newLabels_timeCutoff$TypeofSign_new, exclude= NA)
