@@ -52,6 +52,7 @@ blooms_newLabels <- revise_advisory_labels(blooms)
 blooms_newLabels_timeCutoff <- blooms_newLabels %>% 
   mutate(TypeofSign_new= ifelse(days_ago > 30 & days_ago <= 90, "Last update >30 days ago", TypeofSign_new)) %>% 
   mutate(TypeofSign_new= ifelse(days_ago > 90, "Last update >90 days ago", TypeofSign_new)) %>% 
+  mutate(TypeofSign_new= ifelse(is.na(TypeofSign_new), "See incident details", TypeofSign_new)) %>% 
   mutate(days_ago_label= "days_ago",
          days_ago_label= ifelse(days_ago <= 7, "Within 7 days", days_ago_label)) %>%
   mutate(days_ago_label= ifelse(days_ago > 7 & days_ago <= 30, "Within 30 days", days_ago_label)) %>%
