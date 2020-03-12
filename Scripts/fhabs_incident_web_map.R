@@ -3,7 +3,8 @@
 
 ## The script standardizes the language in the "current advisory" field so that
 ## current advisories can be displayed as colors on the map
-## The script also changes the advisory and size of the point based on the time since last update
+## The script also changes the advisory and size of the point
+## based on the time since the last samples were collected or field observation was made
 
 
 message("Running Rscript to make Tableau CSV")
@@ -17,9 +18,15 @@ setwd("S:/OIMA/SHARED/Freshwater HABs Program/FHABs Database/Python_Output")
 
 ## Download Bloom report CSV
 blooms <- suppressMessages(read_csv("FHAB_BloomReport.csv")) %>% 
-  mutate(TypeofSign= tolower(TypeofSign)) 
+  mutate(TypeofSign= tolower(TypeofSign))
+#mutate(UpdatedOn_Date= date(UpdatedOn)) # extract date from the UpdatedOn date-time stamp
 
-# Calculate number of days ago bloom was last observed
+
+# ablooms <- read_csv("C:/Users/KBouma-Gregson/OneDrive - Water Boards/Maps/incident_web_map/Data/BloomReportAccessExport_20200312.csv")
+# date(ablooms$UpdatedOn[1:10])
+
+
+# Calculate number of days ago since last site visit or samples collected
 days_ago <- as.duration(blooms$BloomLastVerifiedOn %--% Sys.Date()) %>% 
   as.numeric(., "days")
 
@@ -46,8 +53,8 @@ blooms_newLabels <- revise_advisory_labels(blooms)
 
 
 ## Apply time cutoffs to revise the advisories displayed on the map
-## >14 days and <90 days with no updated bloom observation, status changes to "Suspected bloom"
-## >90 days with no updated bloom observation, status changes to "None"
+## >30 days and <90 days with no updated incident observation, status changes to "Suspected bloom"
+## >90 days with no updated incident observation, status changes to "None"
 
 blooms_newLabels_timeCutoff <- blooms_newLabels %>% 
   mutate(TypeofSign_new= ifelse(days_ago > 30 & days_ago <= 90, "Last verified >30 days ago", TypeofSign_new)) %>% 
@@ -59,9 +66,7 @@ blooms_newLabels_timeCutoff <- blooms_newLabels %>%
   mutate(days_ago_label= ifelse(days_ago > 30 & days_ago <= 90, "Within 90 days", days_ago_label)) %>%
   mutate(days_ago_label= ifelse(days_ago > 90, "Older than 90 days", days_ago_label))
 
-
-#table(blooms_newLabels_timeCutoff$TypeofSign_new, exclude= NA)
-
+## Write a new CSV file
 message("Writing file: FHAB_BloomReport_Tableau.csv")
 write_csv(blooms_newLabels_timeCutoff, "FHAB_BloomReport_Tableau.csv")
 
