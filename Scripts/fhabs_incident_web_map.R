@@ -18,13 +18,8 @@ setwd("S:/OIMA/SHARED/Freshwater HABs Program/FHABs Database/Python_Output")
 
 ## Download Bloom report CSV
 blooms <- suppressMessages(read_csv("FHAB_BloomReport.csv")) %>% 
-  mutate(TypeofSign= tolower(TypeofSign))
-#mutate(UpdatedOn_Date= date(UpdatedOn)) # extract date from the UpdatedOn date-time stamp
-
-
-# ablooms <- read_csv("C:/Users/KBouma-Gregson/OneDrive - Water Boards/Maps/incident_web_map/Data/BloomReportAccessExport_20200312.csv")
-# date(ablooms$UpdatedOn[1:10])
-
+  mutate(TypeofSign= tolower(TypeofSign)) %>% 
+mutate(UpdatedOn_Date= date(UpdatedOn)) # extract date from the UpdatedOn date-time stamp
 
 # Calculate number of days ago since last site visit or samples collected
 days_ago <- as.duration(blooms$BloomLastVerifiedOn %--% Sys.Date()) %>% 
