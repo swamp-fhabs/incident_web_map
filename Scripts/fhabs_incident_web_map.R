@@ -32,7 +32,7 @@ df_new <- df %>%
   mutate(TypeofSign_new= ifelse(str_detect(TypeofSign_new, "(cau|cua|advis)"), "Caution", TypeofSign_new)) %>% # CAUTION
   mutate(TypeofSign_new= ifelse(str_detect(TypeofSign_new, "warn"), "Warning", TypeofSign_new)) %>% # WARNING
   mutate(TypeofSign_new= ifelse(str_detect(TypeofSign_new, "dan"), "Danger", TypeofSign_new)) %>% # DANGER
-  mutate(TypeofSign_new= ifelse(str_detect(TypeofSign_new, "(non|no |n\\/a)"), "None", TypeofSign_new)) %>%  # NONE
+  mutate(TypeofSign_new= ifelse(str_detect(TypeofSign_new, "(non|no |n\\/a|na)"), "None", TypeofSign_new)) %>%  # NONE
   mutate(TypeofSign_new= ifelse(str_detect(TypeofSign_new, "(close)"), "Danger", TypeofSign_new)) %>%  # DANGER
   mutate(TypeofSign_new= ifelse(str_detect(TypeofSign_new, "usace"), "Awareness sign", TypeofSign_new)) %>%  # USACE
   mutate(TypeofSign_new= ifelse(str_detect(TypeofSign_new, "invest"), "Under investigation", TypeofSign_new)) %>%  # Under investigation requestion from RB1
